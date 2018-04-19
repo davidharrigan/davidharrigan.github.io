@@ -1,4 +1,4 @@
-baseURL = "https://davidharrigan.github.io/"
+baseURL = "http://harrigan.xyz/"
 
 languageCode        = "en-us"
 contentdir          = "content"

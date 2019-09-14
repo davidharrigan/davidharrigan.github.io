@@ -39,7 +39,7 @@ usesmallsummarycard = true
 posts_navigation = true
 
 highlightjs            = true
-highlightjslanguages = ["go", "python"]                        # additional languages not included in the "common" set
+highlightjslanguages = ["go", "python", "protobuf"]                        # additional languages not included in the "common" set
 highlightjsStyle     = "darcula"
 
 avatar                 = "img/me.png" # path to image in static dir e.g img/avatar.png (do not use in the same time as gravatar)

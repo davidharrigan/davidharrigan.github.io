@@ -25,3 +25,5 @@ hugo
 
 echo "Updating master branch"
 cd public && git add --all && git commit -m "Publishing to gh-pages (publish.sh)"
+
+exit 0;

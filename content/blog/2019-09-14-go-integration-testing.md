@@ -15,7 +15,7 @@ Two of the primary languages used at the time were Go and Python. Although
 the majority of our services were written in Go, most of our API tests were
 written in Python. Writing stand-alone tests is fairly straightforward in
 Python. At the simplest level, you just need a single file that sets up
-tests, uses requests to make calls, and assert the responses.
+tests, uses `requests` to make calls, and assert the responses.
 
 I wanted to know a way to do something similar in Go.
 

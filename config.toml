@@ -44,10 +44,10 @@ lang                   = "en"
 linkedin               = "//linkedin.com/in/david-t-harrigan"
 noshowreadtime         = false                         # if true, don't show "<x> minutes read" in posts
 selfintro              = ""                            # appears in the site header when set to a non-empty string
-# twitter                = "//twitter.com/you"
+twitter                = "//twitter.com/DavidTHarrigan"
 
 highlightjs            = true
 highlightjslanguages = ["go", "python"]                        # additional languages not included in the "common" set
 highlightjsStyle     = "darcula"
 
-avatar                 = "img/profile.png" # path to image in static dir e.g img/avatar.png (do not use in the same time as gravatar)
+avatar                 = "img/me.png" # path to image in static dir e.g img/avatar.png (do not use in the same time as gravatar)

@@ -4,28 +4,16 @@ languageCode        = "en-us"
 contentdir          = "content"
 layoutdir           = "layouts"
 publishdir          = "public"
-theme               = "cocoa"
+theme               = "cocoa-eh"
 author              = "David Harrigan"
 title               = "David Harrigan"
 pygmentsuseclasses  = true
-disqusshortname     = "david_harrigan" # Comment out to disable Disqus.
+disqusshortname     = "david_harrigan"
 pluralizelisttitles = false
 googleAnalytics     = "UA-117782664-1"
 
 [permalinks]
 blog  = "blog/:slug/"
-
-[[menu.main]]
-name                   = "Blog"
-weight                 = -120
-identifier             = "blog"
-url                    = "/blog/"
-
-[[menu.main]]
-name                   = "About"
-weight                 = -110
-identifier             = "about"
-url                    = "/about/"
 
 [params]
 include_rss            = true                          # include RSS <link> tag in <head> and show RSS icon
@@ -35,16 +23,20 @@ author                 = "David Harrigan"
 cachebuster            = true                          # add the current unix timestamp in query string for cache busting css assets
 dateform               = "Jan 2, 2006"
 dateformfull           = "Mon Jan 2 2006 15:04:05 MST"
+copyright              = "Copyright © 2018-{year} David Harrigan"
 description            = "Don't panic"
-email                  = "dharrigan118@gmail.com"      # TODO
+email                  = "dave.t.harrigan@gmail.com"      # TODO
 extracssfiles          = [ "/css/override.css" ]       # In your `static` directory, add/remove files as necessary.
 faviconfile            = "img/leaf.ico"
-github                 = "//github.com/davidharrigan"
+github                 = "davidharrigan"
 lang                   = "en"
-linkedin               = "//linkedin.com/in/david-t-harrigan"
+linkedin               = "david-t-harrigan"
 noshowreadtime         = false                         # if true, don't show "<x> minutes read" in posts
-selfintro              = ""                            # appears in the site header when set to a non-empty string
-twitter                = "//twitter.com/DavidTHarrigan"
+twitter                = "DavidTHarrigan"
+instagram              = "david.harrigan"
+logofile = "img/me.png"
+usesmallsummarycard = true
+posts_navigation = true
 
 highlightjs            = true
 highlightjslanguages = ["go", "python"]                        # additional languages not included in the "common" set

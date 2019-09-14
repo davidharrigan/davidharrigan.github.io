@@ -255,4 +255,4 @@ I hope you found this writeup useful. I believe we managed to accomplish all
 the goals I proposed in the beginning. I would love to know other approaches
 that are out there that accomplishes something similar or any drawbacks to
 the one I presented here. If you would like the see the full source of this
-testing setup, you can check it out in https://github.com/davidharrigan/pinger
+testing setup, you can check it out [here](https://github.com/davidharrigan/pinger).

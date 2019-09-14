@@ -1,4 +1,4 @@
-baseURL = "http://harrigan.xyz/"
+baseURL = "https://harrigan.xyz/"
 
 languageCode        = "en-us"
 contentdir          = "content"

@@ -22,7 +22,7 @@ I wanted to know a way to do something similar in Go.
 ## Goals
 
 - Easy to write and leverages the standard `testing` package.
-- Test setup function tests that configures dependencies, such as
+- Test setup function that configures dependencies, such as
 client config to call services in the desired environment (local, staging,
 production, etc).
 - Standalone tests that are isolated from unit tests. This is either a plus

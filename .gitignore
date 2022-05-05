@@ -1,9 +1,19 @@
+# Created by https://www.toptal.com/developers/gitignore/api/hugo
+# Edit at https://www.toptal.com/developers/gitignore?templates=hugo
+
 ### Hugo ###
-# Hugo binary
-hugo*
-
-# Generated files at default location
+# Generated files by hugo
 /public/
-/resources/_gen
+/resources/_gen/
+/assets/jsconfig.json
+hugo_stats.json
 
-# End of https://www.gitignore.io/api/hugo
+# Executable may be added to repository
+hugo.exe
+hugo.darwin
+hugo.linux
+
+# Temporary lock file while building
+/.hugo_build.lock
+
+# End of https://www.toptal.com/developers/gitignore/api/hugo

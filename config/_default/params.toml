@@ -9,6 +9,9 @@ ShowBreadCrumbs = true
 ShowCodeCopyButtons = true
 ShowToc = true
 
+  [assets]
+    disableHLJS = true
+
   [editPost]
       URL = "https://github.com/davidharrigan/davidharrigan.github.io/tree/main/content"
       Text = "Suggest Changes" # edit text

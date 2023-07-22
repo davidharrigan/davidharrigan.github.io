@@ -1,0 +1,14 @@
+[[main]]
+name = "Archive"
+url = "archives"
+weight = 5
+
+[[main]]
+name = "Search"
+url = "search/"
+weight = 10
+
+[[main]]
+name = "Tags"
+url = "tags/"
+weight = 10

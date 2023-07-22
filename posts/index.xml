@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>development on harrigan.xyz</title>
-    <link>https://harrigan.xyz/categories/development/</link>
-    <description>Recent content in development on harrigan.xyz</description>
+    <title>Posts on harrigan.xyz</title>
+    <link>https://harrigan.xyz/posts/</link>
+    <description>Recent content in Posts on harrigan.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://harrigan.xyz/categories/development/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://harrigan.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Testing Go gRPC Server Using an in-memory Buffer with `bufconn`</title>
       <link>https://harrigan.xyz/posts/testing-go-grpc-server-using-an-in-memory-buffer-with-bufconn/</link>

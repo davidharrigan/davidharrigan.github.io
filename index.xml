@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>David Harrigan</title><link>https://harrigan.xyz/</link><description>Recent content on David Harrigan</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://harrigan.xyz/index.xml" rel="self" type="application/rss+xml"/><item><title>Testing Go gRPC Server Using an in-memory Buffer with `bufconn`</title><link>https://harrigan.xyz/blog/testing-go-grpc-server-using-an-in-memory-buffer-with-bufconn/</link><pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate><guid>https://harrigan.xyz/blog/testing-go-grpc-server-using-an-in-memory-buffer-with-bufconn/</guid><description>It can be cumbersome to setup a testing environment targeting a live server to implement full API testing against your gRPC server. Even spinning up a server from your test file can lead to unintended consequences that require you to allocate a TCP port (parallel runs, multiple runs under same CI server).
-bufconn is a package which provides a Listener object that implements net.Conn. We can substitute this listener in a gRPC server - allowing us to spin up a server that acts as a full-fledged server that can be used for testing that talks over an in-memory buffer instead of a real port.</description></item><item><title>Integration Testing with Golang</title><link>https://harrigan.xyz/blog/integration-testing-with-golang/</link><pubDate>Sat, 14 Sep 2019 00:00:00 +0000</pubDate><guid>https://harrigan.xyz/blog/integration-testing-with-golang/</guid><description>At my previous job, I came to appreciate the importance of integration testing. Not only does it give us confidence (especially when we’re on-call), but it continuously verified that our services were functional through automated runs from Jenkins.
-Two of the primary languages used at the time were Go and Python. Although the majority of our services were written in Go, most of our API tests were written in Python. Writing stand-alone tests is fairly straightforward in Python.</description></item><item><title>Home</title><link>https://harrigan.xyz/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://harrigan.xyz/home/</guid><description>Hi there. My name is David Harrigan. I&amp;rsquo;m a software engineer from New Hampshire.
-I like Go, Python, and my puppy Blue.</description></item><item><title>License</title><link>https://harrigan.xyz/license/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://harrigan.xyz/license/</guid><description>The MIT License (MIT) Copyright (c) 2018 David Harrigan dave.t.harrigan@gmail.com Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &amp;quot;Software&amp;quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>harrigan.xyz</title>
+    <link>https://harrigan.xyz/</link>
+    <description>Recent content on harrigan.xyz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://harrigan.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Testing Go gRPC Server Using an in-memory Buffer with `bufconn`</title>
+      <link>https://harrigan.xyz/posts/testing-go-grpc-server-using-an-in-memory-buffer-with-bufconn/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://harrigan.xyz/posts/testing-go-grpc-server-using-an-in-memory-buffer-with-bufconn/</guid>
+      <description>It can be cumbersome to setup a testing environment targeting a live server to implement full API testing against your gRPC server. Even spinning up a server from your test file can lead to unintended consequences that require you to allocate a TCP port (parallel runs, multiple runs under same CI server).
+bufconn is a package which provides a Listener object that implements net.Conn. We can substitute this listener in a gRPC server - allowing us to spin up a server that acts as a full-fledged server that can be used for testing that talks over an in-memory buffer instead of a real port.</description>
+    </item>
+    
+    <item>
+      <title>Integration Testing with Golang</title>
+      <link>https://harrigan.xyz/posts/integration-testing-with-golang/</link>
+      <pubDate>Sat, 14 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://harrigan.xyz/posts/integration-testing-with-golang/</guid>
+      <description>At my previous job, I came to appreciate the importance of integration testing. Not only does it give us confidence (especially when we’re on-call), but it continuously verified that our services were functional through automated runs from Jenkins.
+Two of the primary languages used at the time were Go and Python. Although the majority of our services were written in Go, most of our API tests were written in Python. Writing stand-alone tests is fairly straightforward in Python.</description>
+    </item>
+    
+    <item>
+      <title>Archive</title>
+      <link>https://harrigan.xyz/archives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harrigan.xyz/archives/</guid>
+      <description>archives</description>
+    </item>
+    
+    <item>
+      <title>License</title>
+      <link>https://harrigan.xyz/license/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harrigan.xyz/license/</guid>
+      <description>The MIT License (MIT) Copyright (c) 2018 David Harrigan dave.t.harrigan@gmail.com Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &amp;quot;Software&amp;quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</description>
+    </item>
+    
+    <item>
+      <title>Search</title>
+      <link>https://harrigan.xyz/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harrigan.xyz/search/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -10,7 +10,6 @@ pygmentsUseClasses  = true
 pluralizelisttitles = false
 enableEmoji = true
 
-disqusshortname     = "harrigan-xyz"
 googleAnalytics     = "UA-117782664-1"
 
 aliases = ['blog', 'posts']

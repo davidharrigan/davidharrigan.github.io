@@ -15,14 +15,17 @@ googleAnalytics     = "UA-117782664-1"
 
 aliases = ['blog', 'posts']
 
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
+  series = 'series'
 
 [privacy]
   [privacy.googleAnalytics]
     respectDoNotTrack = true
 
 [permalinks]
-blog  = "blog/:slug/"
-posts = "posts/:slug/"
+  posts = "/:sections/:slug/"
 
 [markup]
   [markup.highlight]

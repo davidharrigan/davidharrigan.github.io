@@ -1,0 +1,10 @@
+.archive-series {
+  float: right;
+}
+
+.badge {
+  padding: 3px 10px;
+  background: var(--tertiary);
+  border-radius: 6px;
+  font-size: 14px
+}

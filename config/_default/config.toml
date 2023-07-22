@@ -1,0 +1,34 @@
+baseURL = "https://harrigan.xyz/"
+theme               = "PaperMod"
+author              = "David Harrigan"
+title               = "harrigan.xyz"
+
+languageCode        = "en-us"
+contentdir          = "content"
+publishdir          = "public"
+pygmentsuseclasses  = true
+pluralizelisttitles = false
+enableEmoji = true
+
+disqusshortname     = "harrigan-xyz"
+googleAnalytics     = "UA-117782664-1"
+
+aliases = ['blog', 'posts']
+
+
+[privacy]
+  [privacy.googleAnalytics]
+    respectDoNotTrack = true
+
+[permalinks]
+blog  = "blog/:slug/"
+posts = "posts/:slug/"
+
+[markup]
+    [markup.highlight]
+        # anchorLineNos: true
+        # codeFences: true
+        # guessSyntax: true
+        # lineNos: true
+        codeFences = true
+        style = "dracula"

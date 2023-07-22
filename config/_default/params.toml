@@ -1,0 +1,41 @@
+env = "production "
+author = "David Harrigan"
+
+defaultTheme = "auto"
+ShowShareButtons = true
+ShowReadingTime = true
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+ShowCodeCopyButtons = true
+ShowToc = true
+
+  [editPost]
+      URL = "https://github.com/davidharrigan/davidharrigan.github.io/tree/main/content"
+      Text = "Suggest Changes" # edit text
+      appendFilePath = true # to append file path to Edit link
+
+
+  [profileMode]
+  enabled = true
+  title = "Hello there"
+  subtitle = "I write about cool struff. Mostly about software."
+  # imageUrl = "<image link>"
+  # imageTitle = "<title of image as alt>"
+  # imageWidth = 120
+  # imageHeight = 120
+
+    [[profileMode.buttons]]
+    name = "Posts"
+    url = "/posts"
+
+    [[profileMode.buttons]]
+    name = "Archive"
+    url = "/archives"
+
+[[socialIcons]]
+name = "github"
+url = "https://github.com/davidharrigan"
+
+[[socialIcons]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/david-t-harrigan"

@@ -1,9 +1,10 @@
 +++
 title = "Integration Testing with Golang"
 description = "How to create integration tests with Golang"
-tags = [ "go", "golang", "development", "testing"]
+tags = [ "go", "development", "testing"]
 date = "2019-09-14"
-categories = [ "development", "golang", "testing"]
+categories = [ "development", "go", "testing"]
+aliases = ["/blog/integration-testing-with-golang/"]
 +++
 
 At my previous job, I came to appreciate the importance of integration

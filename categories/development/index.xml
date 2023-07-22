@@ -1,31 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>development on harrigan.xyz</title>
-    <link>https://harrigan.xyz/categories/development/</link>
-    <description>Recent content in development on harrigan.xyz</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://harrigan.xyz/categories/development/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Testing Go gRPC Server Using an in-memory Buffer with `bufconn`</title>
-      <link>https://harrigan.xyz/posts/testing-go-grpc-server-using-an-in-memory-buffer-with-bufconn/</link>
-      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://harrigan.xyz/posts/testing-go-grpc-server-using-an-in-memory-buffer-with-bufconn/</guid>
-      <description>It can be cumbersome to setup a testing environment targeting a live server to implement full API testing against your gRPC server. Even spinning up a server from your test file can lead to unintended consequences that require you to allocate a TCP port (parallel runs, multiple runs under same CI server).
-bufconn is a package which provides a Listener object that implements net.Conn. We can substitute this listener in a gRPC server - allowing us to spin up a server that acts as a full-fledged server that can be used for testing that talks over an in-memory buffer instead of a real port.</description>
-    </item>
-    
-    <item>
-      <title>Integration Testing with Golang</title>
-      <link>https://harrigan.xyz/posts/integration-testing-with-golang/</link>
-      <pubDate>Sat, 14 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://harrigan.xyz/posts/integration-testing-with-golang/</guid>
-      <description>At my previous job, I came to appreciate the importance of integration testing. Not only does it give us confidence (especially when we’re on-call), but it continuously verified that our services were functional through automated runs from Jenkins.
-Two of the primary languages used at the time were Go and Python. Although the majority of our services were written in Go, most of our API tests were written in Python. Writing stand-alone tests is fairly straightforward in Python.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>development on harrigan.xyz</title><link>https://harrigan.xyz/categories/development/</link><description>Recent content in development on harrigan.xyz</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://harrigan.xyz/categories/development/index.xml" rel="self" type="application/rss+xml"/><item><title>Testing Go gRPC Server Using an in-memory Buffer with `bufconn`</title><link>https://harrigan.xyz/posts/testing-go-grpc-server-using-an-in-memory-buffer-with-bufconn/</link><pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate><guid>https://harrigan.xyz/posts/testing-go-grpc-server-using-an-in-memory-buffer-with-bufconn/</guid><description>It can be cumbersome to setup a testing environment targeting a live server to implement full API testing against your gRPC server. Even spinning up a server from your test file can lead to unintended consequences that require you to allocate a TCP port (parallel runs, multiple runs under same CI server).
+bufconn is a package which provides a Listener object that implements net.Conn. We can substitute this listener in a gRPC server - allowing us to spin up a server that acts as a full-fledged server that can be used for testing that talks over an in-memory buffer instead of a real port.</description></item><item><title>Integration Testing with Golang</title><link>https://harrigan.xyz/posts/integration-testing-with-golang/</link><pubDate>Sat, 14 Sep 2019 00:00:00 +0000</pubDate><guid>https://harrigan.xyz/posts/integration-testing-with-golang/</guid><description>At my previous job, I came to appreciate the importance of integration testing. Not only does it give us confidence (especially when we’re on-call), but it continuously verified that our services were functional through automated runs from Jenkins.
+Two of the primary languages used at the time were Go and Python. Although the majority of our services were written in Go, most of our API tests were written in Python. Writing stand-alone tests is fairly straightforward in Python.</description></item></channel></rss>

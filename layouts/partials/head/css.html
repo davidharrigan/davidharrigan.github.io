@@ -1,0 +1,21 @@
+<link
+  href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+  rel="stylesheet"
+/>
+{{- with resources.Get "css/main.css" }}
+  {{- if eq hugo.Environment
+    "development"
+  }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" />
+  {{- else }}
+    {{- with . | minify | fingerprint }}
+      <link
+        rel="stylesheet"
+        href="{{ .RelPermalink }}"
+        integrity="{{ .Data.Integrity }}"
+        crossorigin="anonymous"
+      />
+      hello
+    {{- end }}
+  {{- end }}
+{{- end }}

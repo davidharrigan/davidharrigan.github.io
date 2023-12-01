@@ -1,0 +1,13 @@
+{{ define "main" }}
+  <div class="pb-8 pt-6">
+    <h1 class="text-5xl font-bold tracking-tight">Latest</h1>
+    <p>{{ .Content }}</p>
+  </div>
+
+  {{ range site.RegularPages }}
+    {{ if eq .Section "posts" }}
+      <div class="divider"></div>
+      {{ partial "page-list-summary.html" . }}
+    {{ end }}
+  {{ end }}
+{{ end }}

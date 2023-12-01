@@ -1,0 +1,23 @@
+{
+  "name": "davidharrigan.github.io",
+  "scripts": {
+    "watch": "parcel watch assets/**/* --dist-dir ./dist",
+    "build:assets": "parcel build --no-source-maps --dist-dir ./dist ./assets/**/*"
+  },
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.16",
+    "daisyui": "^4.4.17",
+    "parcel": "^2.10.3",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "prettier": "^3.1.0",
+    "prettier-plugin-go-template": "^0.0.15",
+    "tailwindcss": "^3.3.5"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.3"
+  }
+}

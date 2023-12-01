@@ -1,0 +1,31 @@
+{{ define "main" }}
+  {{ partial "post/content.html" . }}
+  {{- $pages := where site.RegularPages.ByDate "Params.series.name" .Page.Params.series.name }}
+  {{- if and (gt (len $pages) 1) (in $pages . ) }}
+    <div class="flex justify-between prose mx-auto">
+      <div class="flex-1">
+        {{- with $pages.Next . }}
+          <a class="btn btn-neutral btn-md gap-3" href="{{ .Permalink }}">
+            <i class="bx bx-chevron-left"></i>
+            <div class="flex flex-col items-start">
+              <span class="text-neutral-content/50 text-xs">Prev</span>
+              <span>{{- .Name -}}</span>
+            </div>
+          </a>
+        {{- end }}
+      </div>
+      <div>
+        {{- with $pages.Prev . }}
+          <a class="btn btn-neutral btn-md gap-3" href="{{ .Permalink }}">
+            <div class="flex flex-col items-end">
+              <span class="text-neutral-content/50 text-xs">Next</span>
+              <span>{{- .Name -}}</span>
+            </div>
+
+            <i class="bx bx-chevron-right"></i>
+          </a>
+        {{- end }}
+      </div>
+    </div>
+  {{- end }}
+{{ end }}

@@ -1,44 +1,20 @@
 baseURL = "https://harrigan.xyz/"
-theme               = "PaperMod"
-author              = "David Harrigan"
-title               = "harrigan.xyz"
+author = "David Harrigan"
+title = "harrigan.xyz"
 
-languageCode        = "en-us"
-contentdir          = "content"
-publishdir          = "public"
-pygmentsUseClasses  = true
-pluralizelisttitles = false
+languageCode = "en-us"
+contentDir = "content"
+publishDir = "public"
+assetDir = "dist"
+pluralizeListTitles = false
 enableEmoji = true
 
-googleAnalytics     = "UA-117782664-1"
-
-aliases = ['blog', 'posts']
+googleAnalytics = "UA-117782664-1"
 
 [taxonomies]
-  category = 'categories'
-  tag = 'tags'
-  series = 'series'
+category = 'categories'
+tag = 'tags'
+series = 'series'
 
-[privacy]
-  [privacy.googleAnalytics]
-    respectDoNotTrack = true
-
-[permalinks]
-  posts = "/:sections/:slug/"
-
-[markup]
-  [markup.highlight]
-    anchorLineNos = false
-    codeFences = true
-    guessSyntax = false
-    hl_Lines = ''
-    hl_inline = false
-    lineAnchors = ''
-    lineNoStart = 1
-    lineNos = false
-    lineNumbersInTable = true
-    noClasses = true
-    noHl = false
-    style = 'catppuccin-frappe'
-    tabWidth = 4
-
+# [permalinks]
+# posts = "/:sections/:slug/"

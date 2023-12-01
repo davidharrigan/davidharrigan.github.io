@@ -1,0 +1,26 @@
+<article class="prose mx-auto py-6">
+  <h1 class="tracking-tight">{{ .Title }}</h1>
+  <div>
+    <dl>
+      <dt class="sr-only">Published on</dt>
+      <dt class="leading-6 font-medium text-base">
+        <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}"
+          >{{ .Date | time.Format ":date_medium" }}</time
+        >
+      </dt>
+    </dl>
+  </div>
+  <div class="flex flex-wrap">
+    {{- range .Params.tags }}
+      <a
+        class="mr-3 text-sm font-medium uppercase link link-accent"
+        href="/tags/{{ . }}"
+        >{{ . }}</a
+      >
+    {{- end }}
+  </div>
+  <div class="divider"></div>
+  <p>
+    {{ .Content }}
+  </p>
+</article>

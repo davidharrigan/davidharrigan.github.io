@@ -1,0 +1,106 @@
+<!doctype html>
+<html
+  data-theme="night"
+  lang="{{ or site.Language.LanguageCode site.Language.Lang }}"
+  dir="{{ or site.Language.LanguageDirection `ltr` }}"
+  class="scroll-smooth"
+>
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body>
+    <div class="drawer" x-data x-bind="keyboard">
+      <input
+        id="sidebar"
+        type="checkbox"
+        class="drawer-toggle"
+        x-model="$store.sidebar.open"
+      />
+      <div class="drawer-content">
+        {{ partial "nav.html" . }}
+
+
+        <div class="mx-auto max-w-screen-lg min-h-screen px-3 py-6">
+          {{ block "main" . }}{{ end }}
+        </div>
+        <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+          {{ partial "footer.html" . }}
+        </footer>
+      </div>
+
+      <div
+        class="drawer-side z-10"
+        style="scroll-behavior: smooth; scroll-padding-top: 5rem;"
+      >
+        <label
+          for="sidebar"
+          aria-label="close sidebar"
+          class="drawer-overlay"
+        ></label>
+        <aside class="min-h-screen w-80 bg-base-200">
+          <div class="navbar">
+            <div class="flex-1">
+              <a class="btn btn-ghost text-xl" href="/">{{ site.Title }}</a>
+            </div>
+            <div class="flex-none">
+              <div class="tooltip tooltip-bottom" data-tip="⌘E">
+                <label
+                  for="sidebar"
+                  aria-label="open sidebar"
+                  class="btn btn-square btn-ghost"
+                >
+                  <i class="bx bx-x bx-sm bx-tada-hover"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+          <ul class="menu p-4">
+            <!-- Sidebar content here -->
+            <li>
+              <a href="/posts"><i class="bx bx-note bx-sm"></i>Latest Posts</a>
+            </li>
+            <li>
+              <a href="/posts/homelab"
+                ><i class="bx bxl-kubernetes bx-sm"></i>Homelab Stuff</a
+              >
+            </li>
+            <li></li>
+            <li>
+              <details>
+                <summary>
+                  <i class="bx bx-purchase-tag bx-sm text-accent"></i>Tags
+                </summary>
+                <ul>
+                  {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+                    {{ $cnt := .Count }}
+                    {{ with $.Site.GetPage (printf "/tags/%s" $name) }}
+                      <li>
+                        <a
+                          href="{{ .RelPermalink }}"
+                          title="All pages with tag <i>{{ $name }}</i>"
+                          >{{ $name }}
+                          <sup>{{ $cnt }}</sup>
+                        </a>
+                      </li>
+                    {{ end }}
+                  {{ end }}
+                </ul>
+              </details>
+            </li>
+            <li></li>
+            <li>
+              <a href="https://github.com/davidharrigan"
+                ><i class="bx bxl-github bx-sm"></i>Github</a
+              >
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/david-t-harrigan"
+                ><i class="bx bxl-linkedin bx-sm"></i>Linkedin</a
+              >
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>

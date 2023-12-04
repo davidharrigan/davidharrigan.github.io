@@ -1,6 +1,13 @@
 {{ define "main" }}
   <div class="pb-8 pt-6">
-    <h1 class="text-5xl font-bold tracking-tight">{{ .Title }}</h1>
+    <h1 class="text-5xl font-bold tracking-tight">
+      {{- if eq .Section "tags" }}
+        <i class="bx bx-purchase-tag"></i>
+        {{ .Title }}
+      {{- else }}
+        {{ .Title }}
+      {{- end }}
+    </h1>
   </div>
   <p>{{ .Content }}</p>
   {{ range .Pages }}

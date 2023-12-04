@@ -1,14 +1,11 @@
 <article class="prose mx-auto py-6">
   <h1 class="tracking-tight">{{ .Title }}</h1>
-  <div>
-    <dl>
-      <dt class="sr-only">Published on</dt>
-      <dt class="leading-6 font-medium text-base">
-        <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}"
-          >{{ .Date | time.Format ":date_medium" }}</time
-        >
-      </dt>
-    </dl>
+  <div class="pb-2 text-base-content/50 text-sm">
+    <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}"
+      >{{ .Date | time.Format ":date_medium" }}</time
+    >
+    <span>·</span>
+    <span>{{ .ReadingTime }} min</span>
   </div>
   <div class="flex flex-wrap">
     {{- range .Params.tags }}

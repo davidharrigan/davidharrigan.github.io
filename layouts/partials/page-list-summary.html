@@ -16,10 +16,10 @@
           <h2 class="text-2xl font-bold leading-8 tracking-tight">
             <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
           </h2>
-          <div class="flex flex-wrap">
+          <div class="flex flex-wrap pt-1">
             {{- range .Params.tags }}
               <a
-                class="mr-3 text-sm font-medium uppercase link link-accent"
+                class="mr-3 text-sm lowercase btn btn-xs btn-primary"
                 href="/tags/{{ . }}"
                 >{{ . }}</a
               >

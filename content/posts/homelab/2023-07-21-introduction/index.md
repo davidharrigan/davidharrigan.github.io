@@ -20,7 +20,13 @@ containerizing applications with Docker and docker-compose, to running a
 Kubernetes cluster on my Dell R620 I snagged off of
 [/r/homelabsales](https://reddit.com/r/homelabsales).
 
-My latest setup has been pretty awesome. My homelab consists of:
+My latest setup has been pretty awesome, but it's time for an upgrade. In this
+series, I will document my learning process and decisions. Hopefully you will
+find this interesting. There are many things that I still don't know and I'll be
+figuring them out along the way. Feedback and suggestions are always
+appreciated.
+
+## Current Setup
 
 - Dell 620 running [Proxmox](https://www.proxmox.com/en/)
 - [Terraform](https://www.terraform.io/) to automate provisioning of 3 control
@@ -43,11 +49,20 @@ My family has been relying on apps running at home more and more over time. My
 hobby becoming useful is a great problem to have, but it has become more
 critical to FamOps.
 
-I want to ensure services running at home are easy to maintain, secure, and
-_reasonably_ highly available. So here I am, getting the itch to level up my
-infrastructure again. I plan on keeping my current stack running for now
-alongside, so it won't be a complete rewrite from scratch. There are things
-that I still don't know. My aim with this series is to document my learning
-along the way and hope people find them interesting at the same time.
+## Goals
 
-That's it for now - see you in the next post!
+In this iteration of my home infrastructure, these are the goals I'm hoping to
+accomplish:
+
+1. Ease of maintainance. Things just work for the most part, and adding new
+   services is easy.
+2. Automate as much as possible and easily repeatable in case I need to wipe
+   machines away.
+3. Don't attempt to automate everything. Maintaining automation can be difficult
+   when some things break, and you come back to fixing it 6 months later. For
+   simple stuff, written down manual steps can be just as good.
+4. Services are secure and up to date.
+5. Maintain reasonable uptime.
+
+These are just my initial thoughts and will be refined as I go. In the
+following posts, we'll dive more into the actual progress. Thanks for reading!

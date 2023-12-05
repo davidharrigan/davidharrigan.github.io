@@ -2,7 +2,7 @@
   "name": "davidharrigan.github.io",
   "scripts": {
     "watch": "parcel watch assets/**/* --dist-dir ./dist",
-    "build:assets": "parcel build --no-source-maps --dist-dir ./dist ./assets/**/*"
+    "build": "parcel build --no-source-maps --dist-dir ./dist ./assets/**/*"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",

@@ -1,0 +1,200 @@
+<!doctype html><html data-theme=night lang=en-us dir=ltr class=scroll-smooth><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Integration Testing with Golang | harrigan.xyz</title>
+<link href=https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css rel=stylesheet><link rel=stylesheet href=/css/main.min.86f2bde4095248057f7e93e6d1d339f5355d5b575fa12c44859cc416abf30395.css integrity="sha256-hvK95AlSSAV/fpPm0dM59TVdW1dfoSxEhZzEFqvzA5U=" crossorigin=anonymous>hello
+<script defer src=/js/main.399f36bf66ff811bab5a2140358e94beb4621123d78fb560822ececb0594fd95.js integrity="sha256-OZ82v2b/gRurWiFANY6UvrRiESPXj7Vggi7OywWU/ZU=" crossorigin=anonymous></script></head><body><div class=drawer x-data x-bind=keyboard><input id=sidebar type=checkbox class=drawer-toggle x-model=$store.sidebar.open><div class=drawer-content><div class="navbar bg-base-100 z-30"><div class=flex-none><div class="tooltip tooltip-bottom" data-tip=⌘E><label for=sidebar aria-label="open sidebar" class="btn btn-square btn-ghost"><i class="bx bx-menu-alt-left bx-sm"></i></label></div></div><div class=flex-1><a class="btn btn-ghost text-xl" href=/>harrigan.xyz</a></div><div class="absolute m-auto left-1/4 w-1/2 hidden"><label class="searchbox relative w-full"><i class="bx bx-search absolute my-4 ms-4 opacity-40 text-base-content"></i><div class=flex-1><input type=text placeholder=Search name=search class="input input-bordered ps-10 w-full" x-ref=search autocomplete=off></div><div class="pointer-events-none absolute end-6 top-2.5 gap-1 opacity-50 rtl:flex-row-reverse md:block hidden"><kbd class="kbd kbd-sm">⌘</kbd>
+<kbd class="kbd kbd-sm">K</kbd></div></label></div><div class="flex-none pr-4"><label class="swap swap-rotate"><input type=checkbox class="theme-controller hidden" value=retro x-data=theme x-model=light x-on:click=toggle()><svg class="swap-on fill-current w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 24"><path d="M5.64 17l-.71.71a1 1 0 000 1.41 1 1 0 001.41.0l.71-.71A1 1 0 005.64 17zM5 12a1 1 0 00-1-1H3a1 1 0 000 2H4a1 1 0 001-1zm7-7a1 1 0 001-1V3a1 1 0 00-2 0V4a1 1 0 001 1zM5.64 7.05a1 1 0 00.7.29 1 1 0 00.71-.29 1 1 0 000-1.41l-.71-.71A1 1 0 004.93 6.34zm12 .29a1 1 0 00.7-.29l.71-.71a1 1 0 10-1.41-1.41L17 5.64a1 1 0 000 1.41 1 1 0 00.66.29zM21 11H20a1 1 0 000 2h1a1 1 0 000-2zm-9 8a1 1 0 00-1 1v1a1 1 0 002 0V20a1 1 0 00-1-1zm6.36-2A1 1 0 0017 18.36l.71.71a1 1 0 001.41.0 1 1 0 000-1.41zM12 6.5A5.5 5.5.0 1017.5 12 5.51 5.51.0 0012 6.5zm0 9A3.5 3.5.0 1115.5 12 3.5 3.5.0 0112 15.5z"/></svg><svg class="swap-off fill-current w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64 13a1 1 0 00-1.05-.14 8.05 8.05.0 01-3.37.73A8.15 8.15.0 019.08 5.49a8.59 8.59.0 01.25-2A1 1 0 008 2.36 10.14 10.14.0 1022 14.05 1 1 0 0021.64 13zm-9.5 6.69A8.14 8.14.0 017.08 5.22v.27A10.15 10.15.0 0017.22 15.63a9.79 9.79.0 002.1-.22 8.11 8.11.0 01-7.18 4.32z"/></svg></label></div></div><div class="mx-auto max-w-screen-lg min-h-screen px-3 py-6"><article class="prose mx-auto py-6"><h1 class=tracking-tight>Integration Testing with Golang</h1><div class="pb-2 text-base-content/50 text-sm"><time datetime=2019-09-14T00:00:00+00:00>Sep 14, 2019</time>
+<span>·</span>
+<span>5 min</span></div><div class="flex flex-wrap"><a class="mr-3 text-sm font-medium uppercase link link-accent" href=/tags/go>go</a>
+<a class="mr-3 text-sm font-medium uppercase link link-accent" href=/tags/development>development</a>
+<a class="mr-3 text-sm font-medium uppercase link link-accent" href=/tags/testing>testing</a></div><div class=divider></div><p><p>At my previous job, I came to appreciate the importance of integration
+testing. Not only does it give us confidence (especially when we’re on-call),
+but it continuously verified that our services were functional through
+automated runs from Jenkins.</p><p>Two of the primary languages used at the time were Go and Python. Although
+the majority of our services were written in Go, most of our API tests were
+written in Python. Writing stand-alone tests is fairly straightforward in
+Python. At the simplest level, you just need a single file that sets up
+tests, uses <code>requests</code> to make calls, and assert the responses.</p><p>I wanted to know a way to do something similar in Go.</p><h2 id=goals>Goals</h2><ul><li>Easy to write and leverages the standard <code>testing</code> package.</li><li>Test setup function that configures dependencies, such as
+client config to call services in the desired environment (local, staging,
+production, etc).</li><li>Standalone tests that are isolated from unit tests. This is either a plus
+or minus depending on who you ask, I still don&rsquo;t know the answer 😅. I like
+to think that this is a plus. Integration tests should ideally treat the
+target service as a black-box and simply expect some output. There are other
+reasons as well that we will get to in this post.</li><li>A binary can be produced that can run from CI/CD.</li></ul><h2 id=setup>Setup</h2><p>To easily verify my goals, I created a very simple gRPC service that
+I can run against. There are two endpoints - <code>Ping</code> and <code>StreamPing</code>. Calling
+<code>Ping</code> simply replies with (you guessed it!) a <code>pong</code> message. <code>StreamPing</code>
+is similar, but you can specify how many times it <code>pong</code>&rsquo;s back.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-protobuf data-lang=protobuf><span style=display:flex><span>syntax <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;proto3&#34;</span>;<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#f92672>package</span> ping;<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>option</span> go_package <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;protos&#34;</span>;<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>service</span> Pinger {<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>    <span style=color:#66d9ef>rpc</span> Ping(PingRequest) <span style=color:#66d9ef>returns</span> (PingResponse) {}<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>    <span style=color:#66d9ef>rpc</span> PingStream (PingRequest) <span style=color:#66d9ef>returns</span> (stream PingResponse) {}<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>}<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>message</span> <span style=color:#a6e22e>PingRequest</span> {<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>    <span style=color:#66d9ef>int32</span> count <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>}<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>message</span> <span style=color:#a6e22e>PingResponse</span> {<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>    <span style=color:#66d9ef>bytes</span> payload <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>}<span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><p>I wrote a unit test, and I also added a top-level <code>testing</code> package where I intend to store isolated tests. In the end, I ended on the following structure:</p><pre tabindex=0><code>├── Makefile
+├── go.mod
+├── go.sum
+├── grpc
+│   └── protos
+│       ├── ping.pb.go
+│       └── ping.proto
+├── service
+│   ├── main.go
+│   └── pinger
+│       ├── pinger.go
+│       └── pinger_test.go
+└── testing
+    ├── config
+    │   └── config.go
+    └── integration
+        └── pinger
+            ├── integration_test.go
+            └── main_test.go
+</code></pre><h2 id=using-the-build-tag>Using the build tag</h2><p>Go allows you to specify build tags to consider during a build. This concept
+also applies to tests. This means that one way to separate unit tests from
+more time-consuming tests such as integration tests is to mark these files
+with the appropriate build tag to skip them altogether.</p><p>My <code>integration_test.go</code> file has a build tag of:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#75715e>// +build integration
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#f92672>package</span> <span style=color:#a6e22e>pinger</span>
+</span></span></code></pre></div><p>This allows us to skip tests in that file when I just want to run unit tests
+in our project.</p><h2 id=using-testmain>Using <code>TestMain</code></h2><p><code>TestMain</code> allows us to set up the necessary setup and teardown for our test
+cases. This is precisely what we need to set up our clients and dependencies
+needed for running integration tests against any environment.</p><p>Note that this must be placed in the same package as to where our integration
+tests live. This is the other reason why in this case, it is better to have a
+dedicated package for integration tests. The alternative is to have an <code>init()</code>
+func or have multiple <code>TestMain</code> for all packages with the <code>+build integration</code>
+build flag, which did not appeal to me.</p><p>We can also read from <code>flag</code> from <code>TestMain</code>. This allowed me to set up flags
+that can be specified from the command line to specify my server address and
+port. All of the configuration values were then saved to variables under the
+<code>config</code> package. I also added another flag, <code>integrationLocal</code>. If this flag
+is specified, it runs the server from the test, meaning I can quickly verify
+my service is working without having to spin up an entire local environment.
+We could take this a little further and inject mocks for other services that
+it depends on so that it can run without any dependencies.</p><p>In the end, this is what my <code>main_test.go</code> file ended looking like.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#75715e>// +build integration
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#f92672>package</span> <span style=color:#a6e22e>pinger</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> (
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;flag&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;log&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;os&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;testing&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;github.com/davidharrigan/pinger/testing/config&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>integrationLocal</span> = <span style=color:#a6e22e>flag</span>.<span style=color:#a6e22e>Bool</span>(<span style=color:#e6db74>&#34;integration-local&#34;</span>, <span style=color:#66d9ef>false</span>, <span style=color:#e6db74>&#34;spin up a local instance of pinger within the test&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>pingerAddress</span> = <span style=color:#a6e22e>flag</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;pinger-address&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>, <span style=color:#e6db74>&#34;pinger address&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>pingerPort</span> = <span style=color:#a6e22e>flag</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#e6db74>&#34;pinger-port&#34;</span>, <span style=color:#ae81ff>50051</span>, <span style=color:#e6db74>&#34;pinger port&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>TestMain</span>(<span style=color:#a6e22e>m</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>testing</span>.<span style=color:#a6e22e>M</span>) {
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>flag</span>.<span style=color:#a6e22e>Parse</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>integrationLocal</span> {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>go</span> <span style=color:#66d9ef>func</span>() {
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>s</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>config</span>.<span style=color:#a6e22e>Pinger</span>()
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>defer</span> <span style=color:#a6e22e>s</span>.<span style=color:#a6e22e>Stop</span>()
+</span></span><span style=display:flex><span>		}()
+</span></span><span style=display:flex><span>	} <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>log</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#e6db74>&#34;&gt;&gt;&gt; running in integration mode&#34;</span>)
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>config</span>.<span style=color:#a6e22e>PingerConfig</span> = <span style=color:#a6e22e>config</span>.<span style=color:#a6e22e>ServerConfig</span>{
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>Address</span>: <span style=color:#f92672>*</span><span style=color:#a6e22e>pingerAddress</span>,
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>Port</span>:    <span style=color:#f92672>*</span><span style=color:#a6e22e>pingerPort</span>,
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>os</span>.<span style=color:#a6e22e>Exit</span>(<span style=color:#a6e22e>m</span>.<span style=color:#a6e22e>Run</span>())
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=writing-integration-tests>Writing integration tests</h2><p>Now we have all the pieces needed to use the standard <code>testing.T</code> to write
+our integration tests. The only extra step we need is to read the client
+configuration from our <code>config</code> package, but otherwise, it is as simple as
+writing any other Golang tests.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#75715e>// +build integration
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#f92672>package</span> <span style=color:#a6e22e>pinger</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> (
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;context&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;io&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;testing&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;github.com/stretchr/testify/assert&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;google.golang.org/grpc&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>pb</span> <span style=color:#e6db74>&#34;github.com/davidharrigan/pinger/grpc/protos&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#34;github.com/davidharrigan/pinger/testing/config&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>address</span>() <span style=color:#66d9ef>string</span> {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Sprintf</span>(<span style=color:#e6db74>&#34;%s:%d&#34;</span>, <span style=color:#a6e22e>config</span>.<span style=color:#a6e22e>PingerConfig</span>.<span style=color:#a6e22e>Address</span>, <span style=color:#a6e22e>config</span>.<span style=color:#a6e22e>PingerConfig</span>.<span style=color:#a6e22e>Port</span>)
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>TestPinger</span>(<span style=color:#a6e22e>t</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>testing</span>.<span style=color:#a6e22e>T</span>) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>type</span> <span style=color:#a6e22e>expectation</span> <span style=color:#66d9ef>struct</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>out</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>pb</span>.<span style=color:#a6e22e>PingResponse</span>
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>err</span> <span style=color:#66d9ef>error</span>
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>tcs</span> <span style=color:#f92672>:=</span> <span style=color:#66d9ef>map</span>[<span style=color:#66d9ef>string</span>]<span style=color:#66d9ef>struct</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>in</span>       <span style=color:#f92672>*</span><span style=color:#a6e22e>pb</span>.<span style=color:#a6e22e>PingRequest</span>
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>expected</span> <span style=color:#a6e22e>expectation</span>
+</span></span><span style=display:flex><span>	}{
+</span></span><span style=display:flex><span>		<span style=color:#e6db74>&#34;ok&#34;</span>: {
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>in</span>: <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>pb</span>.<span style=color:#a6e22e>PingRequest</span>{},
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>expected</span>: <span style=color:#a6e22e>expectation</span>{
+</span></span><span style=display:flex><span>				<span style=color:#a6e22e>out</span>: <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>pb</span>.<span style=color:#a6e22e>PingResponse</span>{
+</span></span><span style=display:flex><span>					<span style=color:#a6e22e>Payload</span>: []byte(<span style=color:#e6db74>`pong`</span>),
+</span></span><span style=display:flex><span>				},
+</span></span><span style=display:flex><span>			},
+</span></span><span style=display:flex><span>		},
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> <span style=color:#a6e22e>scenario</span>, <span style=color:#a6e22e>tc</span> <span style=color:#f92672>:=</span> <span style=color:#66d9ef>range</span> <span style=color:#a6e22e>tcs</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>Run</span>(<span style=color:#a6e22e>scenario</span>, <span style=color:#66d9ef>func</span>(<span style=color:#a6e22e>t</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>testing</span>.<span style=color:#a6e22e>T</span>) {
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>assert</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>assert</span>.<span style=color:#a6e22e>New</span>(<span style=color:#a6e22e>t</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>conn</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>grpc</span>.<span style=color:#a6e22e>Dial</span>(<span style=color:#a6e22e>address</span>(), <span style=color:#a6e22e>grpc</span>.<span style=color:#a6e22e>WithInsecure</span>())
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>assert</span>.<span style=color:#a6e22e>Nil</span>(<span style=color:#a6e22e>err</span>)
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>defer</span> <span style=color:#a6e22e>conn</span>.<span style=color:#a6e22e>Close</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>c</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>pb</span>.<span style=color:#a6e22e>NewPingerClient</span>(<span style=color:#a6e22e>conn</span>)
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>ctx</span>, <span style=color:#a6e22e>cancel</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>context</span>.<span style=color:#a6e22e>WithTimeout</span>(<span style=color:#a6e22e>context</span>.<span style=color:#a6e22e>Background</span>(), <span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Second</span>)
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>defer</span> <span style=color:#a6e22e>cancel</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>out</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>c</span>.<span style=color:#a6e22e>Ping</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#a6e22e>tc</span>.<span style=color:#a6e22e>in</span>)
+</span></span><span style=display:flex><span>			<span style=color:#a6e22e>assert</span>.<span style=color:#a6e22e>Nil</span>(<span style=color:#a6e22e>err</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>tc</span>.<span style=color:#a6e22e>expected</span>.<span style=color:#a6e22e>err</span> <span style=color:#f92672>==</span> <span style=color:#66d9ef>nil</span> {
+</span></span><span style=display:flex><span>				<span style=color:#a6e22e>assert</span>.<span style=color:#a6e22e>Nil</span>(<span style=color:#a6e22e>err</span>)
+</span></span><span style=display:flex><span>				<span style=color:#a6e22e>assert</span>.<span style=color:#a6e22e>Equal</span>(<span style=color:#a6e22e>tc</span>.<span style=color:#a6e22e>expected</span>.<span style=color:#a6e22e>out</span>, <span style=color:#a6e22e>out</span>)
+</span></span><span style=display:flex><span>			} <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>				<span style=color:#a6e22e>assert</span>.<span style=color:#a6e22e>Nil</span>(<span style=color:#a6e22e>out</span>)
+</span></span><span style=display:flex><span>				<span style=color:#a6e22e>assert</span>.<span style=color:#a6e22e>Equal</span>(<span style=color:#a6e22e>tc</span>.<span style=color:#a6e22e>expected</span>.<span style=color:#a6e22e>err</span>, <span style=color:#a6e22e>err</span>)
+</span></span><span style=display:flex><span>			}
+</span></span><span style=display:flex><span>		})
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=compiling-the-test-binary>Compiling the test binary</h2><p>Now, the only thing left for us to do is produce a binary of integration
+tests. We can specify the <code>-c</code> flag from <code>go test</code> to compile the test binary
+without running it:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>go test -tags integration -c ./testing/integration/...
+</span></span></code></pre></div><p>This is another case why having integration tests isolated works out well.
+Our binary only contains the integration tests.</p><h2 id=conclusion>Conclusion</h2><p>I hope you found this writeup useful. I believe we managed to accomplish all
+the goals I proposed in the beginning. I would love to know other approaches
+that are out there that accomplishes something similar or any drawbacks to
+the one I presented here. If you would like the see the full source of this
+testing setup, you can check it out <a href=https://github.com/davidharrigan/pinger>here</a>.</p></p></article></div><footer class="footer footer-center p-4 bg-base-300 text-base-content"><aside><p>Copyright 2023. All rights reserved.</p></aside></footer></div><div class="drawer-side z-10" style=scroll-behavior:smooth;scroll-padding-top:5rem><label for=sidebar aria-label="close sidebar" class=drawer-overlay></label><aside class="min-h-screen w-80 bg-base-200"><div class=navbar><div class=flex-1><a class="btn btn-ghost text-xl" href=/>harrigan.xyz</a></div><div class=flex-none><div class="tooltip tooltip-bottom" data-tip=⌘E><label for=sidebar aria-label="open sidebar" class="btn btn-square btn-ghost"><i class="bx bx-x bx-sm bx-tada-hover"></i></label></div></div></div><ul class="menu p-4"><li><a href=/posts><i class="bx bx-note bx-sm"></i>Latest Posts</a></li><li><a href=/posts/homelab><i class="bx bxl-kubernetes bx-sm"></i>Homelab Stuff</a></li><li></li><li><details><summary><i class="bx bx-purchase-tag bx-sm text-accent"></i>Tags</summary><ul><li><a href=/tags/development/ title="All pages with tag <i>development</i>">development
+<sup>2</sup></a></li><li><a href=/tags/go/ title="All pages with tag <i>go</i>">go
+<sup>2</sup></a></li><li><a href=/tags/homelab/ title="All pages with tag <i>homelab</i>">homelab
+<sup>2</sup></a></li><li><a href=/tags/testing/ title="All pages with tag <i>testing</i>">testing
+<sup>2</sup></a></li></ul></details></li><li></li><li><a href=https://github.com/davidharrigan><i class="bx bxl-github bx-sm"></i>Github</a></li><li><a href=https://www.linkedin.com/in/david-t-harrigan><i class="bx bxl-linkedin bx-sm"></i>Linkedin</a></li></ul></aside></div></div></body></html>
